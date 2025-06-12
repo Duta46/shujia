@@ -7,6 +7,7 @@ use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -25,17 +26,20 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                ->required()
-                ->maxLength(255),
+                Forms\Components\Card::make()
+                    ->schema([
 
-                FileUpload::make('photo')
-                ->image()
-                ->required(),
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
 
-                 FileUpload::make('photo_white')
-                ->image()
-                ->required(),
+                        FileUpload::make('photo')
+                            ->image()
+                            ->required(),
+
+                        FileUpload::make('photo_white')
+                            ->image(),
+                    ])
             ]);
     }
 
@@ -43,12 +47,15 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                 Tables\Columns\ImageColumn::make('photo')->circular(),
+                Tables\Columns\TextColumn::make('name')->searchable(),
+
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

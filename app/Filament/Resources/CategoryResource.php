@@ -47,7 +47,9 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                 Tables\Columns\ImageColumn::make('photo')->circular(),
+                 Tables\Columns\ImageColumn::make('photo')
+                  ->disk('public')
+                 ->circular(),
                 Tables\Columns\TextColumn::make('name')->searchable(),
 
             ])

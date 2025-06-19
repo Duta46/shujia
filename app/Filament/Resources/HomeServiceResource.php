@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HomeServiceResource\Pages;
 use App\Filament\Resources\HomeServiceResource\RelationManagers;
+use App\Filament\Resources\HomeServiceResource\RelationManagers\TestimonialsRelationManager;
 use App\Models\HomeService;
 use Filament\Forms;
 use Filament\Forms\Components\Fieldset;
@@ -21,7 +22,9 @@ class HomeServiceResource extends Resource
 {
     protected static ?string $model = HomeService::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-paint-brush';
+
+    protected static ?string $navigationGroup = 'Product';
 
     public static function form(Form $form): Form
     {
@@ -100,10 +103,11 @@ class HomeServiceResource extends Resource
                 SelectFilter::make('category_id')
                 ->label('Category')
                 ->relationship('category', 'name'),
-                
+
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -118,7 +122,7 @@ class HomeServiceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TestimonialsRelationManager::class,
         ];
     }
 

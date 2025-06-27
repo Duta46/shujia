@@ -30,8 +30,8 @@ class StoreBookingTransactionRequest extends FormRequest
             'post_code' => 'required|string|max:255',
             'started_time' => 'required|date_format:H:i',
             'proof' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'services_ids' => 'required|array',
-            'services_ids.*' => 'integer|exists:home_services,id',
+            'service_ids' => 'required|array',
+            'service_ids.*' => 'integer|exists:home_services,id',
         ];
     }
 }

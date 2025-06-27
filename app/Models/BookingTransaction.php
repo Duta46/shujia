@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -26,17 +25,19 @@ class BookingTransaction extends Model
         'is_paid',
     ];
 
-    public static function generateUniqueTrxId(){
+    public static function generateUniqueTrxId()
+    {
         $prefix = 'SHUJIA';
 
         do {
             $randomString = $prefix . mt_rand(1000, 9999);
-        }while(self::where('booking_trx_id', $randomString)->exists());
+        } while (self::where('booking_trx_id', $randomString)->exists());
 
         return $randomString;
     }
 
-    public function transactionDetails(){
+    public function transactionDetails()
+    {
         return $this->hasMany(TransactionDetails::class);
     }
 }
